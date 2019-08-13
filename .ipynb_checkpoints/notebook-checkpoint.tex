@@ -1,0 +1,2152 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{validation}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{config} IPCompleter.greedy=True
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        
+        \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{jit} \PY{k}{import} \PY{n}{script}\PY{p}{,} \PY{n}{trace}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{from} \PY{n+nn}{torch} \PY{k}{import} \PY{n}{optim}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{functional} \PY{k}{as} \PY{n+nn}{F}
+        \PY{k+kn}{import} \PY{n+nn}{csv}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{unicodedata}
+        \PY{k+kn}{import} \PY{n+nn}{codecs}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        
+        
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{import} \PY{n}{Dataset}\PY{p}{,} \PY{n}{DataLoader}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{autograd} \PY{k}{import} \PY{n}{Variable}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CUDA\PYZus{}VISIBLE\PYZus{}DEVICES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{CUDA} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{is\PYZus{}available}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} device = torch.device(\PYZdq{}cuda\PYZdq{} if CUDA else \PYZdq{}cpu\PYZdq{})}
+        \PY{n}{device} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{device}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cuda}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{DATA}\label{data}
+
+    leave out validation set
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{INPUT\PYZus{}SIZE} \PY{o}{=} \PY{l+m+mi}{2500}
+        
+        
+        \PY{n}{xy} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./prep\PYZus{}student\PYZus{}input.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{z} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./word\PYZus{}translations.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{translations} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Italian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:} \PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{English}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+        
+        
+        \PY{c+c1}{\PYZsh{} pastconvo = [xy[\PYZsq{}Prep\PYZsq{}][randomindexes[i]]+\PYZsq{} \PYZsq{}+xy[\PYZsq{}Obj\PYZsq{}][randomindexes[i]] +\PYZsq{} \PYZsq{}+ xy[\PYZsq{}Color\PYZsq{}][randomindexes[i]] +\PYZsq{} \PYZsq{}+ xy[\PYZsq{}Past Convo\PYZsq{}][randomindexes[i]] for i in range(len(randomindexes))]}
+        \PY{n}{pastconvo} \PY{o}{=} \PY{p}{[}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Past Convo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{xy}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n}{response} \PY{o}{=} \PY{p}{[}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tutor Response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{xy}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        
+        
+        \PY{c+c1}{\PYZsh{}\PYZsq{} \PYZsq{}.join(pastconvo[i].split()[TOKENS\PYZus{}TAKEN:])}
+        \PY{n}{pairs} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{pastconvo}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{response}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pastconvo}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{input data selected}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+input data selected
+
+    \end{Verbatim}
+
+    \section{VOCABUOLARY}\label{vocabuolary}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Default word tokens}
+        \PY{n}{PAD\PYZus{}token} \PY{o}{=} \PY{l+m+mi}{0}  \PY{c+c1}{\PYZsh{} Used for padding short sentences}
+        \PY{n}{SOS\PYZus{}token} \PY{o}{=} \PY{l+m+mi}{1}  \PY{c+c1}{\PYZsh{} Start\PYZhy{}of\PYZhy{}sentence token}
+        \PY{n}{EOS\PYZus{}token} \PY{o}{=} \PY{l+m+mi}{2}  \PY{c+c1}{\PYZsh{} End\PYZhy{}of\PYZhy{}sentence token}
+        
+        \PY{k}{class} \PY{n+nc}{Vocabulary}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2index} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2count} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{index2word} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{PAD\PYZus{}token}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PAD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{SOS\PYZus{}token}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SOS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{EOS\PYZus{}token}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EOS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}words} \PY{o}{=} \PY{l+m+mi}{3}  \PY{c+c1}{\PYZsh{} Count SOS, EOS, PAD}
+        
+            \PY{k}{def} \PY{n+nf}{addSentence}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{sentence}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{sentence}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{addWord}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{addWord}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{word}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{word} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2index}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2index}\PY{p}{[}\PY{n}{word}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}words}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2count}\PY{p}{[}\PY{n}{word}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{index2word}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}words}\PY{p}{]} \PY{o}{=} \PY{n}{word}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}words} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2count}\PY{p}{[}\PY{n}{word}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        
+            \PY{c+c1}{\PYZsh{} Remove words below a certain count threshold \PYZsh{} CHANGE probably shouldn\PYZsq{}t do this}
+            \PY{k}{def} \PY{n+nf}{trim}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{min\PYZus{}count}\PY{p}{)}\PY{p}{:}
+                \PY{n}{keep\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2count}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{v} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{min\PYZus{}count}\PY{p}{:}
+                        \PY{n}{keep\PYZus{}words}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{k}\PY{p}{)}        
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keep\PYZus{}words }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ / }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ = }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                    \PY{n+nb}{len}\PY{p}{(}\PY{n}{keep\PYZus{}words}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2index}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{keep\PYZus{}words}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2index}\PY{p}{)}
+                \PY{p}{)}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} Reinitialize dictionaries}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2index} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{word2count} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{index2word} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{PAD\PYZus{}token}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PAD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{SOS\PYZus{}token}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SOS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{EOS\PYZus{}token}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{EOS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{num\PYZus{}words} \PY{o}{=} \PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{} Count default tokens}
+        
+                \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{keep\PYZus{}words}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{addWord}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} make data simple}
+        \PY{k}{def} \PY{n+nf}{unicodeToAscii}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}
+                \PY{n}{c} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{unicodedata}\PY{o}{.}\PY{n}{normalize}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NFD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+                \PY{k}{if} \PY{n}{unicodedata}\PY{o}{.}\PY{n}{category}\PY{p}{(}\PY{n}{c}\PY{p}{)} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mn}\PY{l+s+s1}{\PYZsq{}}
+            \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Lowercase, trim, and remove non\PYZhy{}letter characters}
+        \PY{k}{def} \PY{n+nf}{normalizeString}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+            \PY{n}{s} \PY{o}{=} \PY{n}{unicodeToAscii}\PY{p}{(}\PY{n}{s}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n}{s} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{([.!?])}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+            \PY{n}{s} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{[\PYZca{}a\PYZhy{}zA\PYZhy{}Z.!?]+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+            \PY{n}{s} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{s+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{s}
+\end{Verbatim}
+
+
+    \section{creating vocab}\label{creating-vocab}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{pairs} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{normalizeString}\PY{p}{(}\PY{n}{line}\PY{p}{)} \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{p}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{pairs}\PY{p}{]}
+        \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{pairs}\PY{p}{)}
+        
+        \PY{n}{pastconvo} \PY{o}{=} \PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{pairs}\PY{p}{]}
+        \PY{n}{response} \PY{o}{=} \PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{pairs}\PY{p}{]}
+        
+        
+        \PY{n}{voc} \PY{o}{=} \PY{n}{Vocabulary}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dialog}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}getting  rid of rare words}
+        \PY{k}{for} \PY{n}{pair} \PY{o+ow}{in} \PY{n}{pairs}\PY{p}{:}
+            \PY{n}{voc}\PY{o}{.}\PY{n}{addSentence}\PY{p}{(}\PY{n}{pair}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            \PY{n}{voc}\PY{o}{.}\PY{n}{addSentence}\PY{p}{(}\PY{n}{pair}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{counted words:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{voc}\PY{o}{.}\PY{n}{num\PYZus{}words}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vocabulary created}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+counted words: 1014
+vocabulary created
+
+    \end{Verbatim}
+
+    \section{prepare data}\label{prepare-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{indexesFromSentence}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{sentence}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{[}\PY{n}{voc}\PY{o}{.}\PY{n}{word2index}\PY{p}{[}\PY{n}{word}\PY{p}{]} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{sentence}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{EOS\PYZus{}token}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}make column consistent and transpose}
+        \PY{k}{def} \PY{n+nf}{zeroPadding}\PY{p}{(}\PY{n}{l}\PY{p}{,} \PY{n}{fillvalue}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n+nb}{list}\PY{p}{(}\PY{n}{itertools}\PY{o}{.}\PY{n}{zip\PYZus{}longest}\PY{p}{(}\PY{o}{*}\PY{n}{l}\PY{p}{,} \PY{n}{fillvalue}\PY{o}{=}\PY{n}{fillvalue}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{binaryMatrix}\PY{p}{(}\PY{n}{l}\PY{p}{,} \PY{n}{value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{m} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{seq} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{m}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{token} \PY{o+ow}{in} \PY{n}{seq}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{token} \PY{o}{==} \PY{n}{PAD\PYZus{}token}\PY{p}{:}
+                         \PY{n}{m}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n}{m}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{m}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{inputVar}\PY{p}{(}\PY{n}{l}\PY{p}{,} \PY{n}{voc}\PY{p}{)}\PY{p}{:}
+             \PY{n}{indexes\PYZus{}batch} \PY{o}{=} \PY{p}{[}\PY{n}{indexesFromSentence}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{sentence}\PY{p}{)} \PY{k}{for} \PY{n}{sentence} \PY{o+ow}{in} \PY{n}{l}\PY{p}{]}
+             \PY{n}{lengths} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indexes}\PY{p}{)} \PY{k}{for} \PY{n}{indexes} \PY{o+ow}{in} \PY{n}{indexes\PYZus{}batch}\PY{p}{]}\PY{p}{)}
+             \PY{n}{padList} \PY{o}{=} \PY{n}{zeroPadding}\PY{p}{(}\PY{n}{indexes\PYZus{}batch}\PY{p}{)}
+             \PY{n}{padVar} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{LongTensor}\PY{p}{(}\PY{n}{padList}\PY{p}{)}
+             \PY{k}{return} \PY{n}{padVar}\PY{p}{,} \PY{n}{lengths}
+         
+         \PY{c+c1}{\PYZsh{} Returns padded target sequence tensor, padding mask, and max target length}
+         \PY{k}{def} \PY{n+nf}{outputVar}\PY{p}{(}\PY{n}{l}\PY{p}{,} \PY{n}{voc}\PY{p}{)}\PY{p}{:}
+             \PY{n}{indexes\PYZus{}batch} \PY{o}{=} \PY{p}{[}\PY{n}{indexesFromSentence}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{sentence}\PY{p}{)} \PY{k}{for} \PY{n}{sentence} \PY{o+ow}{in} \PY{n}{l}\PY{p}{]}
+             \PY{n}{max\PYZus{}target\PYZus{}len} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indexes}\PY{p}{)} \PY{k}{for} \PY{n}{indexes} \PY{o+ow}{in} \PY{n}{indexes\PYZus{}batch}\PY{p}{]}\PY{p}{)}
+             \PY{n}{padList} \PY{o}{=} \PY{n}{zeroPadding}\PY{p}{(}\PY{n}{indexes\PYZus{}batch}\PY{p}{)}
+             \PY{n}{mask} \PY{o}{=} \PY{n}{binaryMatrix}\PY{p}{(}\PY{n}{padList}\PY{p}{)}
+             \PY{n}{mask} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ByteTensor}\PY{p}{(}\PY{n}{mask}\PY{p}{)}
+             \PY{n}{padVar} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{LongTensor}\PY{p}{(}\PY{n}{padList}\PY{p}{)}
+             \PY{k}{return} \PY{n}{padVar}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}
+         
+         \PY{c+c1}{\PYZsh{} Returns all items for a given batch of pairs}
+         \PY{k}{def} \PY{n+nf}{batch2TrainData}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{pair\PYZus{}batch}\PY{p}{)}\PY{p}{:}
+             \PY{n}{pair\PYZus{}batch}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{input\PYZus{}batch}\PY{p}{,} \PY{n}{output\PYZus{}batch} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{pair} \PY{o+ow}{in} \PY{n}{pair\PYZus{}batch}\PY{p}{:}
+                 \PY{n}{input\PYZus{}batch}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pair}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{n}{output\PYZus{}batch}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pair}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{inp}\PY{p}{,} \PY{n}{lengths} \PY{o}{=} \PY{n}{inputVar}\PY{p}{(}\PY{n}{input\PYZus{}batch}\PY{p}{,} \PY{n}{voc}\PY{p}{)}
+             \PY{n}{output}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len} \PY{o}{=} \PY{n}{outputVar}\PY{p}{(}\PY{n}{output\PYZus{}batch}\PY{p}{,} \PY{n}{voc}\PY{p}{)}
+             \PY{k}{return} \PY{n}{inp}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{output}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{,} \PY{n}{input\PYZus{}batch}\PY{p}{,} \PY{n}{output\PYZus{}batch}
+\end{Verbatim}
+
+
+    \section{MODEL}\label{model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{class} \PY{n+nc}{EncoderRNN}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{embedding}\PY{p}{,} \PY{n}{n\PYZus{}layers}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{EncoderRNN}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{n}{n\PYZus{}layers}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{n}{hidden\PYZus{}size}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{embedding} \PY{o}{=} \PY{n}{embedding}
+         
+                 \PY{c+c1}{\PYZsh{} Initialize GRU; the input\PYZus{}size and hidden\PYZus{}size params are both set to \PYZsq{}hidden\PYZus{}size\PYZsq{}}
+                 \PY{c+c1}{\PYZsh{}   because our input size is a word embedding with number of features == hidden\PYZus{}size}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gru} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{GRU}\PY{p}{(}\PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{n\PYZus{}layers}\PY{p}{,}
+                                   \PY{n}{dropout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0} \PY{k}{if} \PY{n}{n\PYZus{}layers} \PY{o}{==} \PY{l+m+mi}{1} \PY{k}{else} \PY{n}{dropout}\PY{p}{)}\PY{p}{,} \PY{n}{bidirectional}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{input\PYZus{}seq}\PY{p}{,} \PY{n}{input\PYZus{}lengths}\PY{p}{,} \PY{n}{hidden}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Convert word indexes to embeddings}
+                 \PY{n}{embedded} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{embedding}\PY{p}{(}\PY{n}{input\PYZus{}seq}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Pack padded batch of sequences for RNN module}
+                 \PY{n}{packed} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{rnn}\PY{o}{.}\PY{n}{pack\PYZus{}padded\PYZus{}sequence}\PY{p}{(}\PY{n}{embedded}\PY{p}{,} \PY{n}{input\PYZus{}lengths}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Forward pass through GRU}
+                 \PY{n}{outputs}\PY{p}{,} \PY{n}{hidden} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gru}\PY{p}{(}\PY{n}{packed}\PY{p}{,} \PY{n}{hidden}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Unpack padding}
+                 \PY{n}{outputs}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{rnn}\PY{o}{.}\PY{n}{pad\PYZus{}packed\PYZus{}sequence}\PY{p}{(}\PY{n}{outputs}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Sum bidirectional GRU outputs}
+                 \PY{n}{outputs} \PY{o}{=} \PY{n}{outputs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size}\PY{p}{]} \PY{o}{+} \PY{n}{outputs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:} \PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size}\PY{p}{:}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{} Return output and final hidden state}
+                 \PY{k}{return} \PY{n}{outputs}\PY{p}{,} \PY{n}{hidden}
+\end{Verbatim}
+
+
+    Attention using dot
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Luong attention layer}
+         \PY{k}{class} \PY{n+nc}{Attn}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{method}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{Attn}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{=} \PY{n}{method}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o+ow}{not} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{general}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{concat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                     \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is not an appropriate attention method.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{n}{hidden\PYZus{}size}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{general}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{)}
+                 \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{concat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{v} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Parameter}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{FloatTensor}\PY{p}{(}\PY{n}{hidden\PYZus{}size}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{dot\PYZus{}score}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}output}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{hidden} \PY{o}{*} \PY{n}{encoder\PYZus{}output}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{general\PYZus{}score}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}output}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{energy} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn}\PY{p}{(}\PY{n}{encoder\PYZus{}output}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{hidden} \PY{o}{*} \PY{n}{energy}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{concat\PYZus{}score}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}output}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{energy} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{cat}\PY{p}{(}\PY{p}{(}\PY{n}{hidden}\PY{o}{.}\PY{n}{expand}\PY{p}{(}\PY{n}{encoder\PYZus{}output}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{encoder\PYZus{}output}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{v} \PY{o}{*} \PY{n}{energy}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Calculate the attention weights (energies) based on the given method}
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{general}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{attn\PYZus{}energies} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{general\PYZus{}score}\PY{p}{(}\PY{n}{hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}
+                 \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{concat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{attn\PYZus{}energies} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{concat\PYZus{}score}\PY{p}{(}\PY{n}{hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}
+                 \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{method} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{attn\PYZus{}energies} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dot\PYZus{}score}\PY{p}{(}\PY{n}{hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Transpose max\PYZus{}length and batch\PYZus{}size dimensions}
+                 \PY{n}{attn\PYZus{}energies} \PY{o}{=} \PY{n}{attn\PYZus{}energies}\PY{o}{.}\PY{n}{t}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Return the softmax normalized probability scores (with added dimension)}
+                 \PY{k}{return} \PY{n}{F}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{attn\PYZus{}energies}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{class} \PY{n+nc}{LuongAttnDecoderRNN}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{attn\PYZus{}model}\PY{p}{,} \PY{n}{embedding}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{output\PYZus{}size}\PY{p}{,} \PY{n}{n\PYZus{}layers}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{LuongAttnDecoderRNN}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Keep for reference}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn\PYZus{}model} \PY{o}{=} \PY{n}{attn\PYZus{}model}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{n}{hidden\PYZus{}size}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size} \PY{o}{=} \PY{n}{output\PYZus{}size}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}layers} \PY{o}{=} \PY{n}{n\PYZus{}layers}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout} \PY{o}{=} \PY{n}{dropout}
+         
+                 \PY{c+c1}{\PYZsh{} Define layers}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{embedding} \PY{o}{=} \PY{n}{embedding}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{embedding\PYZus{}dropout} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Dropout}\PY{p}{(}\PY{n}{dropout}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gru} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{GRU}\PY{p}{(}\PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{n\PYZus{}layers}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0} \PY{k}{if} \PY{n}{n\PYZus{}layers} \PY{o}{==} \PY{l+m+mi}{1} \PY{k}{else} \PY{n}{dropout}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{concat} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{hidden\PYZus{}size} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{output\PYZus{}size}\PY{p}{)}
+         
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn} \PY{o}{=} \PY{n}{Attn}\PY{p}{(}\PY{n}{attn\PYZus{}model}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{input\PYZus{}step}\PY{p}{,} \PY{n}{last\PYZus{}hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Note: we run this one step (word) at a time}
+                 \PY{c+c1}{\PYZsh{} Get embedding of current input word}
+                 \PY{n}{embedded} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{embedding}\PY{p}{(}\PY{n}{input\PYZus{}step}\PY{p}{)}
+                 \PY{n}{embedded} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{embedding\PYZus{}dropout}\PY{p}{(}\PY{n}{embedded}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Forward through unidirectional GRU}
+                 \PY{n}{rnn\PYZus{}output}\PY{p}{,} \PY{n}{hidden} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gru}\PY{p}{(}\PY{n}{embedded}\PY{p}{,} \PY{n}{last\PYZus{}hidden}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Calculate attention weights from the current GRU output}
+                 \PY{n}{attn\PYZus{}weights} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn}\PY{p}{(}\PY{n}{rnn\PYZus{}output}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Multiply attention weights to encoder outputs to get new \PYZdq{}weighted sum\PYZdq{} context vector}
+                 \PY{n}{context} \PY{o}{=} \PY{n}{attn\PYZus{}weights}\PY{o}{.}\PY{n}{bmm}\PY{p}{(}\PY{n}{encoder\PYZus{}outputs}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Concatenate weighted context vector and GRU output using Luong eq. 5}
+                 \PY{n}{rnn\PYZus{}output} \PY{o}{=} \PY{n}{rnn\PYZus{}output}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{n}{context} \PY{o}{=} \PY{n}{context}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{concat\PYZus{}input} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{cat}\PY{p}{(}\PY{p}{(}\PY{n}{rnn\PYZus{}output}\PY{p}{,} \PY{n}{context}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{concat\PYZus{}output} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{concat\PYZus{}input}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Predict next word using Luong eq. 6}
+                 \PY{n}{output} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{out}\PY{p}{(}\PY{n}{concat\PYZus{}output}\PY{p}{)}
+                 \PY{n}{output} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{output}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Return output and final hidden state}
+                 \PY{k}{return} \PY{n}{output}\PY{p}{,} \PY{n}{hidden}
+\end{Verbatim}
+
+
+    \section{EVAL}\label{eval}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{class} \PY{n+nc}{GreedySearchDecoder}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n}{GreedySearchDecoder}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{encoder} \PY{o}{=} \PY{n}{encoder}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{decoder} \PY{o}{=} \PY{n}{decoder}
+         
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{input\PYZus{}seq}\PY{p}{,} \PY{n}{input\PYZus{}length}\PY{p}{,} \PY{n}{max\PYZus{}length}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Forward input through encoder model}
+                 \PY{n}{encoder\PYZus{}outputs}\PY{p}{,} \PY{n}{encoder\PYZus{}hidden} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{encoder}\PY{p}{(}\PY{n}{input\PYZus{}seq}\PY{p}{,} \PY{n}{input\PYZus{}length}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Prepare encoder\PYZsq{}s final hidden layer to be first hidden input to the decoder}
+                 \PY{n}{decoder\PYZus{}hidden} \PY{o}{=} \PY{n}{encoder\PYZus{}hidden}\PY{p}{[}\PY{p}{:}\PY{n}{decoder}\PY{o}{.}\PY{n}{n\PYZus{}layers}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{} Initialize decoder input with SOS\PYZus{}token}
+                 \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{long}\PY{p}{)} \PY{o}{*} \PY{n}{SOS\PYZus{}token}
+                 \PY{c+c1}{\PYZsh{} Initialize tensors to append decoded words to}
+                 \PY{n}{all\PYZus{}tokens} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{long}\PY{p}{)}
+                 \PY{n}{all\PYZus{}scores} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{n}{device}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Iteratively decode one word token at a time}
+                 \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}length}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} Forward pass through decoder}
+                     \PY{n}{decoder\PYZus{}output}\PY{p}{,} \PY{n}{decoder\PYZus{}hidden} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{decoder}\PY{p}{(}\PY{n}{decoder\PYZus{}input}\PY{p}{,} \PY{n}{decoder\PYZus{}hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{} Obtain most likely word token and its softmax score}
+                     \PY{n}{decoder\PYZus{}scores}\PY{p}{,} \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{decoder\PYZus{}output}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{} Record token and score}
+                     \PY{n}{all\PYZus{}tokens} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{cat}\PY{p}{(}\PY{p}{(}\PY{n}{all\PYZus{}tokens}\PY{p}{,} \PY{n}{decoder\PYZus{}input}\PY{p}{)}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                     \PY{n}{all\PYZus{}scores} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{cat}\PY{p}{(}\PY{p}{(}\PY{n}{all\PYZus{}scores}\PY{p}{,} \PY{n}{decoder\PYZus{}scores}\PY{p}{)}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                     \PY{c+c1}{\PYZsh{} Prepare current token to be next decoder input (add a dimension)}
+                     \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{n}{decoder\PYZus{}input}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Return collections of word tokens and scores}
+                 \PY{k}{return} \PY{n}{all\PYZus{}tokens}\PY{p}{,} \PY{n}{all\PYZus{}scores}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{evaluate}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{sentence}\PY{p}{,} \PY{n}{max\PYZus{}length}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Format input sentence as a batch}
+             \PY{c+c1}{\PYZsh{} words \PYZhy{}\PYZgt{} indexes}
+             \PY{n}{indexes\PYZus{}batch} \PY{o}{=} \PY{p}{[}\PY{n}{indexesFromSentence}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{sentence}\PY{p}{)}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} Create lengths tensor}
+             \PY{n}{lengths} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indexes}\PY{p}{)} \PY{k}{for} \PY{n}{indexes} \PY{o+ow}{in} \PY{n}{indexes\PYZus{}batch}\PY{p}{]}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Transpose dimensions of batch to match models\PYZsq{} expectations}
+             \PY{n}{input\PYZus{}batch} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{LongTensor}\PY{p}{(}\PY{n}{indexes\PYZus{}batch}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Use appropriate device}
+             \PY{n}{input\PYZus{}batch} \PY{o}{=} \PY{n}{input\PYZus{}batch}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+             \PY{n}{lengths} \PY{o}{=} \PY{n}{lengths}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Decode sentence with searcher}
+             \PY{n}{tokens}\PY{p}{,} \PY{n}{scores} \PY{o}{=} \PY{n}{searcher}\PY{p}{(}\PY{n}{input\PYZus{}batch}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{max\PYZus{}length}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} indexes \PYZhy{}\PYZgt{} words}
+             \PY{n}{decoded\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{n}{voc}\PY{o}{.}\PY{n}{index2word}\PY{p}{[}\PY{n}{token}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{token} \PY{o+ow}{in} \PY{n}{tokens}\PY{p}{]}
+             \PY{k}{return} \PY{n}{decoded\PYZus{}words}\PY{p}{,} \PY{n}{scores}
+         
+         
+         \PY{c+c1}{\PYZsh{}returns a list of output words fiven a input sentence}
+         \PY{k}{def} \PY{n+nf}{evaluateInput}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{input\PYZus{}sentence}\PY{p}{,} \PY{n}{max\PYZus{}length}\PY{p}{)}\PY{p}{:}
+             \PY{n}{input\PYZus{}sentence} \PY{o}{=} \PY{n}{normalizeString}\PY{p}{(}\PY{n}{input\PYZus{}sentence}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Evaluate sentence}
+             \PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{scores} \PY{o}{=} \PY{n}{evaluate}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{input\PYZus{}sentence}\PY{p}{,} \PY{n}{max\PYZus{}length}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Format and print response sentence}
+             \PY{n}{output\PYZus{}words}\PY{p}{[}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{output\PYZus{}words} \PY{k}{if} \PY{o+ow}{not} \PY{p}{(}\PY{n}{x} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EOS}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{or} \PY{n}{x} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PAD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{scores}
+         \PY{c+c1}{\PYZsh{}     print(\PYZsq{}Bot:\PYZsq{}, \PYZsq{} \PYZsq{}.join(output\PYZus{}words))}
+         
+         \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}with\PYZus{}target}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{TEST\PYZus{}SIZE}\PY{p}{,} \PY{n}{INPUT\PYZus{}SIZE}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{randomindexes} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{INPUT\PYZus{}SIZE}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Past Convo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{]}
+         
+             \PY{n}{inputs} \PY{o}{=} \PY{p}{[}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Past Convo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{randomindexes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{]}
+             \PY{n}{targets} \PY{o}{=} \PY{p}{[}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tutor Response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{randomindexes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{max\PYZus{}length} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{normalizeString}\PY{p}{(}\PY{n}{targets}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)} 
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{past convo:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inputs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+                 \PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{scores} \PY{o}{=} \PY{n}{evaluateInput}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{inputs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bot:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correct: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{targets}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 
+         \PY{k}{def} \PY{n+nf}{validation\PYZus{}eval}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{TEST\PYZus{}SIZE}\PY{p}{,} \PY{n}{INPUT\PYZus{}SIZE}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{randomindexes} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{n}{INPUT\PYZus{}SIZE}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Past Convo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{]}
+         
+             \PY{n}{inputs} \PY{o}{=} \PY{p}{[}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Past Convo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{randomindexes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{]}
+             \PY{n}{targets} \PY{o}{=} \PY{p}{[}\PY{n}{xy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tutor Response}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{randomindexes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{]}
+             
+             \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}  
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{TEST\PYZus{}SIZE}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{max\PYZus{}length} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{normalizeString}\PY{p}{(}\PY{n}{targets}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)} 
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{past convo:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{inputs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+                 \PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{scorelist} \PY{o}{=} \PY{n}{evaluateInput}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{inputs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{)}
+                 \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{scorelist}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{scorelist}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bot:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{simulated student}\label{simulated-student}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{import}  \PY{n+nn}{pprint}
+         \PY{n}{pp} \PY{o}{=} \PY{n}{pprint}\PY{o}{.}\PY{n}{PrettyPrinter}\PY{p}{(}\PY{n}{indent} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+         
+         
+         \PY{n}{z} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./word\PYZus{}translations.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{translations} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Italian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:} \PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{English}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{translations\PYZus{}toItalian} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{English}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:} \PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Italian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{concepts} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{translations}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{prep} \PY{o}{=} \PY{n}{concepts}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{]}
+         \PY{n}{color} \PY{o}{=} \PY{n}{concepts}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mi}{16}\PY{p}{]}
+         \PY{n}{obj} \PY{o}{=} \PY{n}{concepts}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{:}\PY{p}{]}
+         
+         \PY{k}{def} \PY{n+nf}{concept}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{iseng}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{translations\PYZus{}toItalian}\PY{p}{[}\PY{n}{word}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{word}
+         
+         \PY{k}{def} \PY{n+nf}{iseng}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{word} \PY{o+ow}{in} \PY{n}{translations\PYZus{}toItalian}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{True}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{False}
+         
+         \PY{k}{def} \PY{n+nf}{isitalian}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{word} \PY{o+ow}{in} \PY{n}{translations}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{True}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{False}
+         
+         \PY{c+c1}{\PYZsh{}guess is list in correct order, correct is solution list}
+         \PY{k}{def} \PY{n+nf}{identify\PYZus{}incorrects}\PY{p}{(}\PY{n}{guess}\PY{p}{,} \PY{n}{correct}\PY{p}{)}\PY{p}{:}
+             \PY{n}{rv} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{correct}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{guess}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{n}{correct}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{correct}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{rv}
+                 
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}correct order is prep obj color}
+         
+         
+         \PY{k}{class} \PY{n+nc}{Student}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{pickup}\PY{p}{,} \PY{n}{forget}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{global} \PY{n}{prep}\PY{p}{,}\PY{n}{color}\PY{p}{,}\PY{n}{obj}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pickup} \PY{o}{=} \PY{n}{pickup}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{forget} \PY{o}{=} \PY{n}{forget}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge} \PY{o}{=} \PY{p}{\PYZob{}}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{prep}\PY{p}{\PYZcb{}}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{n}{c}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{color}\PY{p}{\PYZcb{}}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{obj}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{n}{o}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{o} \PY{o+ow}{in} \PY{n}{obj}\PY{p}{\PYZcb{}}
+                 \PY{p}{\PYZcb{}}
+                
+             \PY{c+c1}{\PYZsh{}TODO: can output random italian word too}
+             \PY{c+c1}{\PYZsh{}output three words in correct order list}
+             \PY{k}{def} \PY{n+nf}{guess}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{correct}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{global} \PY{n}{translations}
+                 \PY{c+c1}{\PYZsh{}correct: [prep, object, color]}
+                 \PY{n}{prep\PYZus{}c}\PY{p}{,} \PY{n}{obj\PYZus{}c}\PY{p}{,} \PY{n}{color\PYZus{}c} \PY{o}{=} \PY{n}{correct}
+                 \PY{n}{prep\PYZus{}t} \PY{o}{=} \PY{n}{translations}\PY{p}{[}\PY{n}{prep\PYZus{}c}\PY{p}{]}
+                 \PY{n}{obj\PYZus{}t} \PY{o}{=} \PY{n}{translations}\PY{p}{[}\PY{n}{obj\PYZus{}c}\PY{p}{]}
+                 \PY{n}{color\PYZus{}t} \PY{o}{=} \PY{n}{translations}\PY{p}{[}\PY{n}{color\PYZus{}c}\PY{p}{]}
+                 
+         \PY{c+c1}{\PYZsh{}         rv = \PYZsq{}is it \PYZsq{}}
+                 \PY{n}{rv} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{prep\PYZus{}c}\PY{p}{)} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{prep\PYZus{}c}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.7} \PY{k}{else} \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{prep\PYZus{}t}\PY{p}{)}
+                 \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{obj\PYZus{}c}\PY{p}{)}  \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{obj}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{obj\PYZus{}c}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.7} \PY{k}{else} \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{obj\PYZus{}t}\PY{p}{)}
+                 \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{color\PYZus{}c}\PY{p}{)} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{color\PYZus{}c}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.7} \PY{k}{else} \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{color\PYZus{}t}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{rv}
+             
+             \PY{c+c1}{\PYZsh{}returns empty string if nothing to ask}
+             \PY{c+c1}{\PYZsh{}returns the eng word}
+             \PY{k}{def} \PY{n+nf}{ask}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{correct}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}TODO: randomize order}
+                 \PY{c+c1}{\PYZsh{}correct = [prep\PYZus{}c, obj\PYZus{}c, color\PYZus{}c]}
+                 \PY{k}{global} \PY{n}{translations}
+                 \PY{n}{word} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{n}{prep\PYZus{}c}\PY{p}{,} \PY{n}{obj\PYZus{}c}\PY{p}{,} \PY{n}{color\PYZus{}c} \PY{o}{=} \PY{n}{correct}
+                 
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{prep\PYZus{}c}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.3}\PY{p}{:}
+                     \PY{n}{word} \PY{o}{=} \PY{n}{prep\PYZus{}c}
+                 \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{obj}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{obj\PYZus{}c}\PY{p}{]} \PY{o}{\PYZlt{}}  \PY{l+m+mf}{0.3}\PY{p}{:}
+                     \PY{n}{word} \PY{o}{=} \PY{n}{obj\PYZus{}c}
+                 \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{color\PYZus{}c}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.3}\PY{p}{:}
+                     \PY{n}{word} \PY{o}{=} \PY{n}{color\PYZus{}c}
+                 
+                 \PY{k}{if} \PY{n}{word} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{}rv = \PYZsq{}How do i say \PYZsq{} + translations[word] + \PYZsq{} in Italian\PYZsq{}}
+                     \PY{n}{rv} \PY{o}{=} \PY{n}{translations}\PY{p}{[}\PY{n}{word}\PY{p}{]}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{rv} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{return} \PY{n}{rv}
+             \PY{c+c1}{\PYZsh{}forgets concepts that is not mentioned for each tutor response, excluding  gained}
+         \PY{c+c1}{\PYZsh{}     def forget(self, gained):}
+                 
+             \PY{k}{def} \PY{n+nf}{pickout\PYZus{}concepts}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{output\PYZus{}words}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}return all concepts (only in italian)}
+                 \PY{n}{rv} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{output\PYZus{}words}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{isitalian}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+                     \PY{k}{elif} \PY{n}{iseng}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{rv}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{concept}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{rv}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{pickout\PYZus{}relevent\PYZus{}concepts}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{correct}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}all concepts in italian}
+                 \PY{n}{concepts} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pickout\PYZus{}concepts}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{)}
+                 \PY{k}{return} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{concepts} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{n}{correct}\PY{p}{]}
+                         
+             \PY{k}{def} \PY{n+nf}{change\PYZus{}knowledge}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{correct}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}pick out knowledge}
+                 \PY{k}{global} \PY{n}{prep}\PY{p}{,}\PY{n}{color}\PY{p}{,}\PY{n}{obj}
+                 \PY{n}{concepts} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pickout\PYZus{}relevent\PYZus{}concepts}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{correct}\PY{p}{)}
+                 \PY{n}{p} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{o} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{n}{c}\PY{o}{=}  \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{concepts}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{word} \PY{o+ow}{in} \PY{n}{prep}\PY{p}{:}
+                         \PY{n}{p}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+                     \PY{k}{elif} \PY{n}{word} \PY{o+ow}{in} \PY{n}{color}\PY{p}{:}
+                         \PY{n}{c}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+                     \PY{k}{elif} \PY{n}{word} \PY{o+ow}{in} \PY{n}{obj}\PY{p}{:}
+                         \PY{n}{o}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{word}\PY{p}{)}
+                 \PY{n}{order} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{obj}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}  
+                 \PY{n}{groups} \PY{o}{=} \PY{p}{[}\PY{n}{p}\PY{p}{,} \PY{n}{o}\PY{p}{,} \PY{n}{c}\PY{p}{]}
+                 \PY{n}{change} \PY{o}{=} \PY{l+m+mi}{0}
+                 
+                 \PY{c+c1}{\PYZsh{}update knowledge and return change}
+                 \PY{c+c1}{\PYZsh{}TODO only forget things that are not mentioned }
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{groups}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                         \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{n}{order}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{knowledge}\PY{p}{[}\PY{n}{order}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                             \PY{n}{change} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{c+c1}{\PYZsh{}                     if random.random() \PYZlt{} self.pickup: }
+         \PY{c+c1}{\PYZsh{}                         self.knowledge[order[i]][c] = min(self.knowledge[order[i]][c]+0.4, 1)}
+         \PY{c+c1}{\PYZsh{}                         change += 1   }
+         
+                 \PY{k}{return} \PY{n}{change}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{penalty}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{student}\PY{p}{,} \PY{n}{studentexpect}\PY{p}{,} \PY{n}{correct}\PY{p}{,} \PY{n}{incorrects}\PY{p}{)}\PY{p}{:}
+             \PY{n}{concepts} \PY{o}{=} \PY{n}{student}\PY{o}{.}\PY{n}{pickout\PYZus{}concepts}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{)}
+             \PY{n}{relevent} \PY{o}{=} \PY{n}{student}\PY{o}{.}\PY{n}{pickout\PYZus{}relevent\PYZus{}concepts}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{correct}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}TODO relevent includes english and italian}
+             
+             \PY{c+c1}{\PYZsh{}if nothing correct but confirmed could be because ordering or grammar}
+             
+             \PY{c+c1}{\PYZsh{}conditional on student answer}
+             \PY{c+c1}{\PYZsh{} 1 =\PYZgt{} penalize}
+             \PY{c+c1}{\PYZsh{} 0 =\PYZgt{} reward}
+             
+             \PY{c+c1}{\PYZsh{}incorrect = list incorrect concepts in italian}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{incorrects}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{studentexpect} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{correct}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{output\PYZus{}words} \PY{o+ow}{or} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{output\PYZus{}words}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}penalize: student was correct but no confirmation\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}reward: correct\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mf}{0.2}
+             \PY{k}{elif} \PY{n}{studentexpect} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}TODO need both eng and italian }
+                 \PY{k}{if} \PY{n}{studentexpect} \PY{o+ow}{in} \PY{n}{relevent}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}reward: answered question\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mf}{0.2}
+                 \PY{k}{else}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}penalize: didn\PYZsq{}t answer question\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}the student made a guess that\PYZsq{}s incorrect }
+                 \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{incorrects}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{3} \PY{o+ow}{and} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{correct}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{output\PYZus{}words}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}penalize: all wrong but said correct\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mi}{1}
+                 \PY{k}{if} \PY{n}{concepts} \PY{o}{==} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{}maybe made a grammar hint}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}neutral: did not make a word hint\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mf}{0.8}
+                 \PY{k}{elif} \PY{n+nb}{len}\PY{p}{(}\PY{n}{concepts}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{relevent}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}penalize: had irrelevent hints\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mi}{1}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{}needs to be a hint that student got incorrect}
+                     \PY{k}{for} \PY{n}{hint} \PY{o+ow}{in} \PY{n}{relevent}\PY{p}{:}
+                         \PY{k}{if} \PY{n}{hint} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{incorrects}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}                     print(\PYZdq{}penalize: not a hint that student got wrong\PYZdq{})}
+                             \PY{k}{return} \PY{l+m+mi}{1}
+         \PY{c+c1}{\PYZsh{}             print(\PYZdq{}reward: is a hint student got wrong\PYZdq{})}
+                     \PY{k}{return} \PY{l+m+mf}{0.2}
+                 
+             
+             
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} start one eval}
+         \PY{k}{def} \PY{n+nf}{simulate\PYZus{}with\PYZus{}student}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{} one conversation}
+             \PY{n}{student} \PY{o}{=} \PY{n}{Student}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{tutor\PYZus{}score} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{studentexpect} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{guess\PYZus{}incorrects} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{prep\PYZus{}c} \PY{o}{=}  \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{prep}\PY{p}{)}
+             \PY{n}{color\PYZus{}c} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{color}\PY{p}{)}
+             \PY{n}{obj\PYZus{}c} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{obj}\PY{p}{)}
+             \PY{n}{correct} \PY{o}{=} \PY{p}{[}\PY{n}{prep\PYZus{}c}\PY{p}{,} \PY{n}{obj\PYZus{}c}\PY{p}{,} \PY{n}{color\PYZus{}c}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}     print(correct)}
+             
+             \PY{c+c1}{\PYZsh{}TODO: while student not correct or expects answer}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{coin} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{coin} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5} \PY{o+ow}{and} \PY{n}{student}\PY{o}{.}\PY{n}{ask}\PY{p}{(}\PY{n}{correct}\PY{p}{)} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{askeng} \PY{o}{=} \PY{n}{student}\PY{o}{.}\PY{n}{ask}\PY{p}{(}\PY{n}{correct}\PY{p}{)}
+                     \PY{n}{studentexpect} \PY{o}{=} \PY{n}{translations\PYZus{}toItalian}\PY{p}{[}\PY{n}{askeng}\PY{p}{]}
+                     \PY{n}{input\PYZus{}sent} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{How do you say }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{askeng} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ in Italian}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{guess} \PY{o}{=} \PY{n}{student}\PY{o}{.}\PY{n}{guess}\PY{p}{(}\PY{n}{correct}\PY{p}{)}
+                     \PY{n}{guess\PYZus{}incorrects} \PY{o}{=} \PY{n}{identify\PYZus{}incorrects}\PY{p}{(}\PY{n}{guess}\PY{p}{,} \PY{n}{correct}\PY{p}{)}
+                     \PY{n}{input\PYZus{}sent} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is it }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+} \PY{n}{guess}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{guess}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{guess}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                 
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}\PYZbs{}n\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}Student:\PYZsq{}, input\PYZus{}sent)}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}incorrect:\PYZsq{}, guess\PYZus{}incorrects)}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}expect:\PYZsq{}, studentexpect)}
+         
+                 \PY{c+c1}{\PYZsh{}evaluate on model}
+                 \PY{n}{output\PYZus{}words}\PY{p}{,}\PY{n}{scores} \PY{o}{=} \PY{n}{evaluateInput}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{input\PYZus{}sent}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{)}
+                 \PY{n}{output} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}evaluate on input}
+         \PY{c+c1}{\PYZsh{}         output = input(\PYZsq{}\PYZgt{} \PYZsq{})}
+         \PY{c+c1}{\PYZsh{}         if output == \PYZsq{}q\PYZsq{} or output == \PYZsq{}quit\PYZsq{}: break}
+         \PY{c+c1}{\PYZsh{}         output\PYZus{}words = output.split()}
+                 
+                 \PY{c+c1}{\PYZsh{}how many concpets changed}
+                 \PY{n}{change} \PY{o}{=} \PY{n}{student}\PY{o}{.}\PY{n}{change\PYZus{}knowledge}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{correct}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{}change tutor score}
+                 \PY{n}{tutor\PYZus{}score} \PY{o}{+}\PY{o}{=} \PY{n}{penalty}\PY{p}{(}\PY{n}{output\PYZus{}words}\PY{p}{,} \PY{n}{student}\PY{p}{,} \PY{n}{studentexpect}\PY{p}{,} \PY{n}{correct}\PY{p}{,} \PY{n}{guess\PYZus{}incorrects}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}Bot:\PYZsq{}, output)}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}pickout concpets:\PYZsq{}, student.pickout\PYZus{}concepts(output\PYZus{}words))}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}change:\PYZsq{}, change)}
+                 \PY{c+c1}{\PYZsh{}TODO: tutor\PYZus{}score}
+         \PY{c+c1}{\PYZsh{}         print(\PYZsq{}penalty\PYZsq{}, tutor\PYZus{}score)  }
+                 \PY{n}{studentexpect} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{n}{guess\PYZus{}incorrects} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+             \PY{k}{return} \PY{n}{tutor\PYZus{}score}
+             
+             
+\end{Verbatim}
+
+
+    \section{test train with input}\label{test-train-with-input}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}simulate\PYZus{}with\PYZus{}student(encoder, decoder, searcher, voc)}
+         \PY{c+c1}{\PYZsh{} simulate\PYZus{}with\PYZus{}student(voc)}
+\end{Verbatim}
+
+
+    \section{TRAIN}\label{train}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} negative log lokelihood loss}
+         \PY{c+c1}{\PYZsh{} maskNLLLoss(decoder\PYZus{}output, target\PYZus{}variable[t], mask[t])}
+         \PY{k}{def} \PY{n+nf}{maskNLLLoss}\PY{p}{(}\PY{n}{inp}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{mask}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{nTotal} \PY{o}{=} \PY{n}{mask}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{crossEntropy} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{torch}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{gather}\PY{p}{(}\PY{n}{inp}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{target}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{loss} \PY{o}{=} \PY{n}{crossEntropy}\PY{o}{.}\PY{n}{masked\PYZus{}select}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}loss = reward * loss \PYZhy{}\PYZgt{} 0.001/1}
+         \PY{c+c1}{\PYZsh{}     loss = loss * tutor\PYZus{}score}
+             \PY{n}{loss} \PY{o}{=} \PY{n}{loss}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+             \PY{k}{return} \PY{n}{loss}\PY{p}{,} \PY{n}{nTotal}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{,} \PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{embedding}\PY{p}{,} \PY{n}{encoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{decoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{clip}\PY{p}{,} \PY{n}{iteration}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{encoder\PYZus{}optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+             \PY{n}{decoder\PYZus{}optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{input\PYZus{}variable} \PY{o}{=} \PY{n}{input\PYZus{}variable}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+             \PY{n}{lengths} \PY{o}{=} \PY{n}{lengths}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+             \PY{n}{target\PYZus{}variable} \PY{o}{=} \PY{n}{target\PYZus{}variable}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+             \PY{n}{mask} \PY{o}{=} \PY{n}{mask}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+         
+             \PY{n}{loss} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{print\PYZus{}losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{n\PYZus{}totals} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{tutor\PYZus{}score}  \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{;}
+         
+             \PY{n}{encoder\PYZus{}outputs}\PY{p}{,} \PY{n}{encoder\PYZus{}hidden} \PY{o}{=} \PY{n}{encoder}\PY{p}{(}\PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}encoder output shape\PYZdq{}, encoder\PYZus{}outputs.shape)}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}last encoder hidden shape\PYZdq{}, encoder\PYZus{}hidden.shape)}
+         
+             \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{LongTensor}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{SOS\PYZus{}token} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{small\PYZus{}batch\PYZus{}size}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+             \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{decoder\PYZus{}input}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}initial decoder input shape\PYZdq{}, decoder\PYZus{}input.shape)}
+         \PY{c+c1}{\PYZsh{}     print(decoder\PYZus{}input)}
+         
+             \PY{n}{decoder\PYZus{}hidden} \PY{o}{=}  \PY{n}{encoder\PYZus{}hidden}\PY{p}{[}\PY{p}{:}\PY{n}{decoder}\PY{o}{.}\PY{n}{n\PYZus{}layers}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}initial decoder hidden state shape\PYZdq{}, decoder\PYZus{}hidden.shape)}
+             \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{decoder\PYZus{}output}\PY{p}{,} \PY{n}{decoder\PYZus{}hidden} \PY{o}{=} \PY{n}{decoder}\PY{p}{(}\PY{n}{decoder\PYZus{}input}\PY{p}{,} \PY{n}{decoder\PYZus{}hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{}teacher forcing}
+                 \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{target\PYZus{}variable}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+                 \PY{n}{mask\PYZus{}loss}\PY{p}{,} \PY{n}{nTotal} \PY{o}{=} \PY{n}{maskNLLLoss}\PY{p}{(}\PY{n}{decoder\PYZus{}output}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{mask}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{loss} \PY{o}{+}\PY{o}{=} \PY{n}{mask\PYZus{}loss}
+                 \PY{n}{print\PYZus{}losses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mask\PYZus{}loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{nTotal}\PY{p}{)}
+         
+                 \PY{n}{n\PYZus{}totals} \PY{o}{+}\PY{o}{=} \PY{n}{nTotal}
+                 
+             \PY{n}{returned\PYZus{}loss} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{print\PYZus{}losses}\PY{p}{)} \PY{o}{/} \PY{n}{n\PYZus{}totals}
+             
+             \PY{c+c1}{\PYZsh{}student simulation}
+         \PY{c+c1}{\PYZsh{}     if iteration \PYZgt{} 200:}
+         \PY{c+c1}{\PYZsh{}         encoder.eval()}
+         \PY{c+c1}{\PYZsh{}         decoder.eval()}
+         
+         \PY{c+c1}{\PYZsh{}         searcher = GreedySearchDecoder(encoder, decoder)}
+         \PY{c+c1}{\PYZsh{}         tutor\PYZus{}score = simulate\PYZus{}with\PYZus{}student(encoder, decoder, searcher, voc)}
+         \PY{c+c1}{\PYZsh{}         encoder.train()}
+         \PY{c+c1}{\PYZsh{}         decoder.train()}
+         
+         \PY{c+c1}{\PYZsh{}         loss = loss * tutor\PYZus{}score / 10}
+         \PY{c+c1}{\PYZsh{}         returned\PYZus{}loss = sum(print\PYZus{}losses) / n\PYZus{}totals * tutor\PYZus{}score / 10}
+         
+             
+             \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Clip gradients: gradients are modified in place}
+             \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{clip\PYZus{}grad\PYZus{}norm\PYZus{}}\PY{p}{(}\PY{n}{encoder}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{clip}\PY{p}{)}
+             \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{clip\PYZus{}grad\PYZus{}norm\PYZus{}}\PY{p}{(}\PY{n}{decoder}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{clip}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Adjust model weights}
+             \PY{n}{encoder\PYZus{}optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+             \PY{n}{decoder\PYZus{}optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}training loss\PYZdq{}, returned\PYZus{}loss)}
+         \PY{c+c1}{\PYZsh{} \PYZsh{}     print(returned\PYZus{}losses)}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}\PYZbs{}n\PYZdq{})}
+         
+             \PY{k}{return} \PY{n}{returned\PYZus{}loss}\PY{p}{,} \PY{n}{tutor\PYZus{}score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{valid}\PY{p}{(}\PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{,} \PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{embedding}\PY{p}{,}
+                  \PY{n}{encoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{decoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n}{clip}\PY{p}{,} \PY{n}{VALID\PYZus{}SIZE}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{input\PYZus{}variable} \PY{o}{=} \PY{n}{input\PYZus{}variable}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+            \PY{n}{lengths} \PY{o}{=} \PY{n}{lengths}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+            \PY{n}{target\PYZus{}variable} \PY{o}{=} \PY{n}{target\PYZus{}variable}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+            \PY{n}{mask} \PY{o}{=} \PY{n}{mask}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+        
+            \PY{n}{loss} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{print\PYZus{}losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{n\PYZus{}totals} \PY{o}{=} \PY{l+m+mi}{0}
+        
+            \PY{n}{encoder\PYZus{}outputs}\PY{p}{,} \PY{n}{encoder\PYZus{}hidden} \PY{o}{=} \PY{n}{encoder}\PY{p}{(}\PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}     print(\PYZdq{}encoder output shape\PYZdq{}, encoder\PYZus{}outputs.shape)}
+        \PY{c+c1}{\PYZsh{}     print(\PYZdq{}last encoder hidden shape\PYZdq{}, encoder\PYZus{}hidden.shape)}
+        
+            \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{LongTensor}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{SOS\PYZus{}token} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{VALID\PYZus{}SIZE}\PY{p}{)}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+            \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{decoder\PYZus{}input}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}     print(\PYZdq{}initial decoder input shape\PYZdq{}, decoder\PYZus{}input.shape)}
+        \PY{c+c1}{\PYZsh{}     print(decoder\PYZus{}input)}
+        
+            \PY{n}{decoder\PYZus{}hidden} \PY{o}{=}  \PY{n}{encoder\PYZus{}hidden}\PY{p}{[}\PY{p}{:}\PY{n}{decoder}\PY{o}{.}\PY{n}{n\PYZus{}layers}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}     print(\PYZdq{}initial decoder hidden state shape\PYZdq{}, decoder\PYZus{}hidden.shape)}
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{)}\PY{p}{:}
+                \PY{n}{decoder\PYZus{}output}\PY{p}{,} \PY{n}{decoder\PYZus{}hidden} \PY{o}{=} \PY{n}{decoder}\PY{p}{(}\PY{n}{decoder\PYZus{}input}\PY{p}{,} \PY{n}{decoder\PYZus{}hidden}\PY{p}{,} \PY{n}{encoder\PYZus{}outputs}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{}teacher forcing}
+                \PY{n}{decoder\PYZus{}input} \PY{o}{=} \PY{n}{target\PYZus{}variable}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        
+                \PY{n}{mask\PYZus{}loss}\PY{p}{,} \PY{n}{nTotal} \PY{o}{=} \PY{n}{maskNLLLoss}\PY{p}{(}\PY{n}{decoder\PYZus{}output}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{,} \PY{n}{mask}\PY{p}{[}\PY{n}{t}\PY{p}{]}\PY{p}{)}
+                \PY{n}{loss} \PY{o}{+}\PY{o}{=} \PY{n}{mask\PYZus{}loss}
+                \PY{n}{print\PYZus{}losses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mask\PYZus{}loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{nTotal}\PY{p}{)}
+        
+                \PY{n}{n\PYZus{}totals} \PY{o}{+}\PY{o}{=} \PY{n}{nTotal}
+            \PY{n}{returned\PYZus{}loss} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{print\PYZus{}losses}\PY{p}{)} \PY{o}{/} \PY{n}{n\PYZus{}totals}
+            
+        \PY{c+c1}{\PYZsh{}     print(\PYZdq{}validation loss\PYZdq{}, returned\PYZus{}loss)}
+        \PY{c+c1}{\PYZsh{} \PYZsh{}     print(returned\PYZus{}losses)}
+        \PY{c+c1}{\PYZsh{}     print(\PYZdq{}\PYZbs{}n\PYZdq{})}
+        
+            \PY{k}{return} \PY{n}{returned\PYZus{}loss}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{def} \PY{n+nf}{trainIters}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{pairs}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{dropout}\PY{p}{,} \PY{n}{attn\PYZus{}model}\PY{p}{,} \PY{n}{LEARN\PYZus{}RATE}\PY{p}{,} \PY{n}{WEIGHT\PYZus{}DECAY}\PY{p}{,} \PY{n}{encoder\PYZus{}n\PYZus{}layers}\PY{p}{,} \PY{n}{decoder\PYZus{}n\PYZus{}layers}\PY{p}{,} \PY{n}{n\PYZus{}iteration}\PY{p}{,} \PY{n}{small\PYZus{}batch\PYZus{}size}\PY{p}{,} \PY{n}{clip}\PY{p}{,} \PY{n}{INPUT\PYZus{}SIZE}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{pairs}\PY{p}{)}
+         
+             \PY{n}{pastconvo} \PY{o}{=} \PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{pairs}\PY{p}{]}
+             \PY{n}{response} \PY{o}{=} \PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{pairs}\PY{p}{]}
+             
+             \PY{n}{embedding} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Embedding}\PY{p}{(}\PY{n}{voc}\PY{o}{.}\PY{n}{num\PYZus{}words}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{)}
+         
+             \PY{n}{encoder} \PY{o}{=} \PY{n}{EncoderRNN}\PY{p}{(}\PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{embedding}\PY{p}{,} \PY{n}{encoder\PYZus{}n\PYZus{}layers}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}
+             \PY{n}{decoder} \PY{o}{=} \PY{n}{LuongAttnDecoderRNN}\PY{p}{(}\PY{n}{attn\PYZus{}model}\PY{p}{,}  \PY{n}{embedding}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{voc}\PY{o}{.}\PY{n}{num\PYZus{}words}\PY{p}{,} \PY{n}{decoder\PYZus{}n\PYZus{}layers}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}pass models to device }
+             \PY{n}{encoder} \PY{o}{=} \PY{n}{encoder}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+             \PY{n}{decoder} \PY{o}{=} \PY{n}{decoder}\PY{o}{.}\PY{n}{to}\PY{p}{(}\PY{n}{device}\PY{p}{)}
+         
+             \PY{n}{encoder}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+             \PY{n}{decoder}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}optimizers}
+             \PY{n}{encoder\PYZus{}optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{encoder}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{LEARN\PYZus{}RATE}\PY{p}{,} \PY{n}{weight\PYZus{}decay}\PY{o}{=}\PY{n}{WEIGHT\PYZus{}DECAY}\PY{p}{)}
+             \PY{n}{decoder\PYZus{}optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{decoder}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{LEARN\PYZus{}RATE}\PY{p}{,} \PY{n}{weight\PYZus{}decay}\PY{o}{=}\PY{n}{WEIGHT\PYZus{}DECAY}\PY{p}{)}
+             \PY{n}{encoder\PYZus{}optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+             \PY{n}{decoder\PYZus{}optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} start training}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{START TRAINING}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{returned\PYZus{}losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{validation\PYZus{}losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{tutor\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{searcher} \PY{o}{=} \PY{n}{GreedySearchDecoder}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{)}
+             \PY{n}{best\PYZus{}valid\PYZus{}loss} \PY{o}{=} \PY{l+m+mi}{1000000}
+             
+             \PY{n}{valid\PYZus{}loss} \PY{o}{=} \PY{l+m+mi}{7}
+         
+             \PY{c+c1}{\PYZsh{}predefine eval set}
+             \PY{c+c1}{\PYZsh{} randomindexes = [random.randint(INPUT\PYZus{}SIZE, len(pastconvo)) for \PYZus{} in range(TEST\PYZus{}SIZE)]}
+             \PY{c+c1}{\PYZsh{} evalset = [pairs[randomindexes[i]] for i in range(len(randomindexes))]}
+             \PY{n}{VALID\PYZus{}SIZE} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pairs}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{INPUT\PYZus{}SIZE}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         
+             \PY{n}{iteration} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{c+c1}{\PYZsh{} for iteration in range(num\PYZus{}iters):}
+             \PY{k}{while} \PY{n}{iteration} \PY{o}{\PYZlt{}} \PY{n}{n\PYZus{}iteration}\PY{p}{:}
+                 \PY{n}{iteration} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{c+c1}{\PYZsh{}         print(\PYZdq{} Iteration:\PYZdq{}, iteration)}
+         
+                 \PY{n}{randomindexes} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{INPUT\PYZus{}SIZE}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{small\PYZus{}batch\PYZus{}size}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{trainset} \PY{o}{=} \PY{p}{[}\PY{n}{pairs}\PY{p}{[}\PY{n}{randomindexes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{small\PYZus{}batch\PYZus{}size}\PY{p}{)}\PY{p}{]}
+         
+                 \PY{n}{batches} \PY{o}{=} \PY{n}{batch2TrainData}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{trainset}\PY{p}{)}
+                 \PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{,} \PY{n}{input\PYZus{}batch}\PY{p}{,} \PY{n}{output\PYZus{}batch} \PY{o}{=} \PY{n}{batches}
+         
+                 \PY{c+c1}{\PYZsh{}train one iter}
+         
+                 \PY{n}{returned\PYZus{}loss}\PY{p}{,} \PY{n}{tutor\PYZus{}score} \PY{o}{=} \PY{n}{train}\PY{p}{(}\PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{,} \PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{embedding}\PY{p}{,} \PY{n}{encoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{decoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{small\PYZus{}batch\PYZus{}size}\PY{p}{,} \PY{n}{clip}\PY{p}{,}\PY{n}{iteration}\PY{p}{)}
+         
+                 \PY{n}{returned\PYZus{}losses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{returned\PYZus{}loss}\PY{p}{)}
+                 \PY{n}{tutor\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tutor\PYZus{}score}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}     print(returned\PYZus{}losses)}
+         
+         \PY{c+c1}{\PYZsh{}         print(\PYZdq{}\PYZbs{}n\PYZdq{})}
+         
+                 \PY{k}{if} \PY{n}{iteration} \PY{o}{\PYZpc{}} \PY{l+m+mi}{20} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{encoder}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{decoder}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+         
+                     \PY{n}{evalset} \PY{o}{=} \PY{p}{[}\PY{n}{pairs}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{INPUT\PYZus{}SIZE}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pairs}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+         
+                     \PY{n}{evalbatches} \PY{o}{=} \PY{n}{batch2TrainData}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{evalset}\PY{p}{)}
+                     \PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{,} \PY{n}{input\PYZus{}batch}\PY{p}{,} \PY{n}{output\PYZus{}batch} \PY{o}{=} \PY{n}{evalbatches}
+         
+                     \PY{n}{valid\PYZus{}loss} \PY{o}{=} \PY{n}{valid}\PY{p}{(}\PY{n}{input\PYZus{}variable}\PY{p}{,} \PY{n}{lengths}\PY{p}{,} \PY{n}{target\PYZus{}variable}\PY{p}{,} \PY{n}{mask}\PY{p}{,} \PY{n}{max\PYZus{}target\PYZus{}len}\PY{p}{,} \PY{n}{encoder}\PY{p}{,}
+                                  \PY{n}{decoder}\PY{p}{,} \PY{n}{embedding}\PY{p}{,} \PY{n}{encoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{decoder\PYZus{}optimizer}\PY{p}{,} \PY{n}{VALID\PYZus{}SIZE}\PY{p}{,} \PY{n}{clip}\PY{p}{,} \PY{n}{VALID\PYZus{}SIZE}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{valid\PYZus{}loss} \PY{o}{\PYZlt{}} \PY{n}{best\PYZus{}valid\PYZus{}loss}\PY{p}{:}
+                         \PY{n}{best\PYZus{}valid\PYZus{}loss} \PY{o}{=} \PY{n}{valid\PYZus{}loss}
+                         
+                     \PY{n}{encoder}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{decoder}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{}stop training if validation loss stops decreasing}
+                 \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{validation\PYZus{}losses}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1000} \PY{o+ow}{and} \PY{n}{valid\PYZus{}loss} \PY{o}{\PYZgt{}} \PY{n}{validation\PYZus{}losses}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{60}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{p}{:}
+                     \PY{k}{break}\PY{p}{;}
+                 
+                 \PY{n}{validation\PYZus{}losses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{valid\PYZus{}loss}\PY{p}{)}
+                 
+         
+                 \PY{k}{if} \PY{n}{iteration} \PY{o}{\PYZpc{}} \PY{l+m+mi}{400} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}   
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{returned\PYZus{}losses}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{validation\PYZus{}losses}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}             plt.plot(tutor\PYZus{}scores, color=\PYZsq{}green\PYZsq{})}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{best\PYZus{}valid\PYZus{}loss}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{n\PYZus{}iteration} \PY{o}{=} \PY{l+m+mi}{2800}
+         \PY{n}{clip} \PY{o}{=} \PY{l+m+mf}{50.0}
+         
+         \PY{n}{hidden\PYZus{}options} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{128}\PY{p}{,} \PY{l+m+mi}{256}\PY{p}{,} \PY{l+m+mi}{512}\PY{p}{]}
+         \PY{n}{layer\PYZus{}options} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{batch\PYZus{}options} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{]}
+         \PY{n}{learnrate\PYZus{}options} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{]}
+         \PY{n}{dropout\PYZus{}options} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{]}
+         \PY{n}{weightdecay\PYZus{}options} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.001}\PY{p}{]}
+         \PY{n}{attn\PYZus{}models} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{l}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{el}\PY{p}{,} \PY{n}{dl}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{h} \PY{o+ow}{in} \PY{n}{hidden\PYZus{}options} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{dropout\PYZus{}options} 
+                   \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{attn\PYZus{}models} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{learnrate\PYZus{}options} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{weightdecay\PYZus{}options} \PY{k}{for} \PY{n}{el} \PY{o+ow}{in} \PY{n}{layer\PYZus{}options} \PY{k}{for} \PY{n}{dl} \PY{o+ow}{in} \PY{n}{layer\PYZus{}options} \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{batch\PYZus{}options}\PY{p}{]}
+         
+         \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{p}{[}\PY{n}{params}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100000}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}params, valid\PYZus{}loss}
+         
+         \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{params}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hidden dropout attn leaning weight layers batchsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+             
+             \PY{n}{hidden\PYZus{}size} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{dropout} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{attn\PYZus{}model} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             \PY{n}{LEARN\PYZus{}RATE} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+             \PY{n}{WEIGHT\PYZus{}DECAY} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+             \PY{n}{encoder\PYZus{}n\PYZus{}layers} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+             \PY{n}{decoder\PYZus{}n\PYZus{}layers} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+             \PY{n}{small\PYZus{}batch\PYZus{}size} \PY{o}{=} \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}
+             
+             \PY{n}{valid\PYZus{}loss} \PY{o}{=} \PY{n}{trainIters}\PY{p}{(}\PY{n}{voc}\PY{p}{,} \PY{n}{pairs}\PY{p}{,} \PY{n}{hidden\PYZus{}size}\PY{p}{,} \PY{n}{dropout}\PY{p}{,} \PY{n}{attn\PYZus{}model}\PY{p}{,} \PY{n}{LEARN\PYZus{}RATE}\PY{p}{,} \PY{n}{WEIGHT\PYZus{}DECAY}\PY{p}{,} \PY{n}{encoder\PYZus{}n\PYZus{}layers}\PY{p}{,} \PY{n}{decoder\PYZus{}n\PYZus{}layers}\PY{p}{,} \PY{n}{n\PYZus{}iteration}\PY{p}{,} \PY{n}{small\PYZus{}batch\PYZus{}size}\PY{p}{,} \PY{n}{clip}\PY{p}{,} \PY{n}{INPUT\PYZus{}SIZE}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{valid\PYZus{}loss}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             
+             \PY{k}{if} \PY{n}{valid\PYZus{}loss} \PY{o}{\PYZlt{}} \PY{n}{best\PYZus{}model}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{best\PYZus{}model} \PY{o}{=} \PY{p}{[}\PY{n}{p}\PY{p}{,} \PY{n}{valid\PYZus{}loss}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{best model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{best\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+hidden dropout attn leaning weight layers batchsize (128, 0.1, 'dot', 0.001, 0.1, 2, 2, 8)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.5869215494000417
+
+
+hidden dropout attn leaning weight layers batchsize (128, 0.1, 'dot', 0.001, 0.1, 2, 2, 16)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.4279052508243604
+
+
+hidden dropout attn leaning weight layers batchsize (128, 0.1, 'dot', 0.001, 0.1, 2, 2, 32)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.273109014527429
+
+
+hidden dropout attn leaning weight layers batchsize (128, 0.1, 'dot', 0.001, 0.001, 2, 2, 8)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.492745950039225
+
+
+hidden dropout attn leaning weight layers batchsize (128, 0.1, 'dot', 0.001, 0.001, 2, 2, 16)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_34.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_36.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_37.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_38.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.5065832358839986
+
+
+hidden dropout attn leaning weight layers batchsize (128, 0.1, 'dot', 0.001, 0.001, 2, 2, 32)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_42.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_44.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_45.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_46.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_47.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.467397005893163
+
+
+hidden dropout attn leaning weight layers batchsize (256, 0.1, 'dot', 0.001, 0.1, 2, 2, 8)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_49.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_50.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_51.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_52.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_53.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.2368661363080102
+
+
+hidden dropout attn leaning weight layers batchsize (256, 0.1, 'dot', 0.001, 0.1, 2, 2, 16)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_55.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_56.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_57.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_58.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_59.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_60.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_61.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.0913991433243853
+
+
+hidden dropout attn leaning weight layers batchsize (256, 0.1, 'dot', 0.001, 0.1, 2, 2, 32)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_63.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_64.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_65.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_66.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_67.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_68.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_69.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.0840378045464933
+
+
+hidden dropout attn leaning weight layers batchsize (256, 0.1, 'dot', 0.001, 0.001, 2, 2, 8)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_71.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_72.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_73.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_74.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_75.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_76.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_77.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.4557556122084065
+
+
+hidden dropout attn leaning weight layers batchsize (256, 0.1, 'dot', 0.001, 0.001, 2, 2, 16)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_79.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_80.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_81.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_82.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_83.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_84.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_85.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.4463246061314456
+
+
+hidden dropout attn leaning weight layers batchsize (256, 0.1, 'dot', 0.001, 0.001, 2, 2, 32)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_87.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_88.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_89.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_90.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_91.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_92.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_93.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.556894859969702
+
+
+hidden dropout attn leaning weight layers batchsize (512, 0.1, 'dot', 0.001, 0.1, 2, 2, 8)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_95.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_96.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_97.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_98.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_99.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_100.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_101.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.199024173190564
+
+
+hidden dropout attn leaning weight layers batchsize (512, 0.1, 'dot', 0.001, 0.1, 2, 2, 16)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_103.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_104.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_105.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_106.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_107.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_108.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_109.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.082175831374059
+
+
+hidden dropout attn leaning weight layers batchsize (512, 0.1, 'dot', 0.001, 0.1, 2, 2, 32)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_111.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_112.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_113.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_114.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_115.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_116.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_117.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.989190609194712
+
+
+hidden dropout attn leaning weight layers batchsize (512, 0.1, 'dot', 0.001, 0.001, 2, 2, 8)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_119.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_120.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_121.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_122.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_123.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_124.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_125.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.582688726683111
+
+
+hidden dropout attn leaning weight layers batchsize (512, 0.1, 'dot', 0.001, 0.001, 2, 2, 16)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_127.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_128.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_129.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_130.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_131.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_132.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_133.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.5669320549764967
+
+
+hidden dropout attn leaning weight layers batchsize (512, 0.1, 'dot', 0.001, 0.001, 2, 2, 32)
+START TRAINING
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_135.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_136.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_137.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_138.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_139.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_140.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_141.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.505335483344913
+
+
+best model [(256, 0.1, 'dot', 0.001, 0.001, 2, 2, 16), 2.4463246061314456]
+
+    \end{Verbatim}
+
+    EVALUATION on validation set
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{TEST\PYZus{}SIZE} \PY{o}{=} \PY{l+m+mi}{30}
+        
+        \PY{n}{encoder}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+        \PY{n}{decoder}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{searcher} \PY{o}{=} \PY{n}{GreedySearchDecoder}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{)}
+        
+        \PY{n}{evaluate\PYZus{}with\PYZus{}target}\PY{p}{(}\PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{searcher}\PY{p}{,} \PY{n}{voc}\PY{p}{,} \PY{n}{TEST\PYZus{}SIZE}\PY{p}{,} \PY{n}{INPUT\PYZus{}SIZE}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-1-00e585360343> in <module>
+          1 TEST\_SIZE = 30
+          2 
+    ----> 3 encoder.eval()
+          4 decoder.eval()
+          5 
+
+
+        NameError: name 'encoder' is not defined
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
